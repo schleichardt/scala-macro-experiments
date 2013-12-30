@@ -13,6 +13,7 @@ class SetSuite extends FunSuite {
     Console.withOut(fakeOut){
       new Hello().hello()
     }
+    new String(fakeOut.toByteArray) should be("Hello World!\n")
   }
 }
 
