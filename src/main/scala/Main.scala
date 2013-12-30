@@ -57,4 +57,10 @@ object MacroImpls {
     val tree:Tree = c.parse("""val p = "itparsed"; p""")
     c.Expr(tree)
   }
+
+  def enclosingClassImpl(c: scala.reflect.macros.Context): c.Expr[String] = {
+    import c.universe._
+    val className = c.enclosingClass.symbol.fullName
+    c.literal(className)
+  }
 }

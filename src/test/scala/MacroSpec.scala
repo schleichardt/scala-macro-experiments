@@ -6,7 +6,7 @@ import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
 
-class SetSuite extends FunSuite {
+class MacroSpecs extends FunSuite {
   import PlayGround._
 
   test("hello world") {
@@ -38,6 +38,13 @@ class SetSuite extends FunSuite {
     Other.tree1 should be ("0")
   }
 
+  test("inspect enclosing class, give the name of the class"){
+    Other.enclosingClass should be (classOf[MacroSpecs].getName)
+  }
+
+  test("TreeApi")(pending)
+  test("Eval http://www.scala-lang.org/api/current/index.html#scala.reflect.macros.Evals")(pending)
+
   def withFakeOut(block: => Unit): String = {
     val fakeOut = new ByteArrayOutputStream
     Console.withOut(fakeOut){
@@ -57,8 +64,11 @@ object PlayGround {
   }
 
   object Other {
+
+
     def tree1 = macro MacroImpls.tree1Impl
     def parse = macro MacroImpls.parseImpl
+    def enclosingClass = macro MacroImpls.enclosingClassImpl
   }
   
   object TypeCreator {
