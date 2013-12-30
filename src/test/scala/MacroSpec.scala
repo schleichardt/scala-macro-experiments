@@ -1,4 +1,5 @@
-import java.lang.String
+package experiments
+
 import org.scalatest._
 import Matchers._
 import java.io.ByteArrayOutputStream
@@ -35,8 +36,8 @@ object PlayGround {
   import language.experimental.macros
 
   class Hello {
-    def hello(): Unit = macro MacroImpls.hello_impl//qualified identifier macro implementation method in a static context
-    def helloWithArgs(message: String, times: Int) = macro MacroImpls.helloWithArgs_impl
-    def helloList(list: List[String]) = macro MacroImpls.helloList_impl
+    def hello(): Unit = macro MacroImpls.helloImpl//qualified identifier macro implementation method in a static context
+    def helloWithArgs(message: String, times: Int) = macro MacroImpls.helloWithArgsImpl
+    def helloList(list: List[String]) = macro MacroImpls.helloListImpl
   }
 }
