@@ -42,4 +42,19 @@ object MacroImpls {
     }
     new Workaround {}
   }
+
+  def tree1Impl(c: scala.reflect.macros.Context): c.Expr[String] = {
+    import c.universe._
+    val tree = reify{
+      val i = 0
+      i.toString
+    }.tree
+    c.Expr(tree)
+  }
+
+  def parseImpl(c: scala.reflect.macros.Context): c.Expr[String] = {
+    import c.universe._
+    val tree:Tree = c.parse("""val p = "itparsed"; p""")
+    c.Expr(tree)
+  }
 }

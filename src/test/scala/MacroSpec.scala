@@ -28,6 +28,16 @@ class SetSuite extends FunSuite {
     myInstance.z should be (13)
   }
 
+  //thats a very dynamic way but error prone
+  test("using parse to create a tree"){
+    Other.parse should be ("itparsed")
+  }
+
+  //less dynamic than parse, but easier to write and read
+  test("using reify to create a tree"){
+    Other.tree1 should be ("0")
+  }
+
   def withFakeOut(block: => Unit): String = {
     val fakeOut = new ByteArrayOutputStream
     Console.withOut(fakeOut){
@@ -44,6 +54,11 @@ object PlayGround {
     def hello(): Unit = macro MacroImpls.helloImpl//qualified identifier macro implementation method in a static context
     def helloWithArgs(message: String, times: Int) = macro MacroImpls.helloWithArgsImpl
     def helloList(list: List[String]) = macro MacroImpls.helloListImpl
+  }
+
+  object Other {
+    def tree1 = macro MacroImpls.tree1Impl
+    def parse = macro MacroImpls.parseImpl
   }
   
   object TypeCreator {
