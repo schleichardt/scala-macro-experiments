@@ -20,4 +20,11 @@ object MacroImpls {
       }
     }
   }
+
+  def helloList_impl(c: scala.reflect.macros.Context)(list: c.Expr[List[String]]): c.Expr[Unit] = {
+    import c.universe._
+    reify {
+        println(list.splice.mkString("\n"))
+    }
+  }
 }

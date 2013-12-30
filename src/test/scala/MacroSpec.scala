@@ -17,6 +17,11 @@ class SetSuite extends FunSuite {
     withFakeOut(new Hello().helloWithArgs(message, 3)) should be("NaN\nNaN\nNaN\n")
   }
 
+  test("using list parameter"){
+    val list = List("A", "B", "C")
+    withFakeOut(new Hello().helloList(list)) should be("A\nB\nC\n")
+  }
+
   def withFakeOut(block: => Unit): String = {
     val fakeOut = new ByteArrayOutputStream
     Console.withOut(fakeOut){
@@ -32,5 +37,6 @@ object PlayGround {
   class Hello {
     def hello(): Unit = macro MacroImpls.hello_impl//qualified identifier macro implementation method in a static context
     def helloWithArgs(message: String, times: Int) = macro MacroImpls.helloWithArgs_impl
+    def helloList(list: List[String]) = macro MacroImpls.helloList_impl
   }
 }
