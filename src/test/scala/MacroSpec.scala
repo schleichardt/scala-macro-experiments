@@ -1,5 +1,6 @@
 package experiments
 
+import experiments.info.{ParameterInfo, CalledMethodInfo}
 import org.scalatest._
 import Matchers._
 import java.io.ByteArrayOutputStream
@@ -42,6 +43,15 @@ class MacroSpecs extends FunSuite {
     Other.enclosingClass should be (classOf[MacroSpecs].getName)
   }
 
+  //TODO include the value, if possible
+  test("inspect enclosing method"){
+    anMethod("valueParam1", 5) should be (CalledMethodInfo("experiments.MacroSpecs.anMethod",List(ParameterInfo("param2","pending"), ParameterInfo("param1", "pending"))))
+  }
+
+  def anMethod(param1: String, param2: Int) = Other.enclosingMethod
+
+  test("Context")(pending)
+  test("show")(pending)//show(c.enclosingClass) prints the class as kind of source code
   test("TreeApi")(pending)
   test("Eval http://www.scala-lang.org/api/current/index.html#scala.reflect.macros.Evals")(pending)
 
@@ -54,6 +64,7 @@ class MacroSpecs extends FunSuite {
   }
 }
 
+
 object PlayGround {
   import language.experimental.macros
 
@@ -64,14 +75,20 @@ object PlayGround {
   }
 
   object Other {
-
-
     def tree1 = macro MacroImpls.tree1Impl
     def parse = macro MacroImpls.parseImpl
     def enclosingClass = macro MacroImpls.enclosingClassImpl
+    def enclosingMethod = macro MacroImpls.enclosingMethodImpl
   }
   
   object TypeCreator {
     def makeInstance: X = macro MacroImpls.makeInstanceImpl
   }
 }
+
+
+
+
+
+
+

@@ -3,7 +3,7 @@ name := "scala-macro-experiments"
 
 scalaVersion := "2.10.3"
 
-scalacOptions ++= Seq("-feature")
+scalacOptions ++= Seq("-feature", "-Xlog-free-terms")
 
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
