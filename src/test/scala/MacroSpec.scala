@@ -9,20 +9,20 @@ class SetSuite extends FunSuite {
   import PlayGround._
 
   test("hello world") {
-    val fakeOut = new ByteArrayOutputStream
-    Console.withOut(fakeOut){
-      new Hello().hello()
-    }
-    new String(fakeOut.toByteArray) should be("Hello World!\n")
+    withFakeOut(new Hello().hello()) should be("Hello World!\n")
   }
 
   test("using parameters"){
     val message = "NaN"
+    withFakeOut(new Hello().helloWithArgs(message, 3)) should be("NaN\nNaN\nNaN\n")
+  }
+
+  def withFakeOut(block: => Unit): String = {
     val fakeOut = new ByteArrayOutputStream
     Console.withOut(fakeOut){
-      new Hello().helloWithArgs(message, 3)
+      block
     }
-    new String(fakeOut.toByteArray) should be("NaN\nNaN\nNaN\n")
+    new String(fakeOut.toByteArray)
   }
 }
 
