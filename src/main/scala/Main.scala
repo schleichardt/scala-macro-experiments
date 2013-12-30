@@ -1,10 +1,15 @@
 package experiments
 
+import scala.annotation.StaticAnnotation
+
 object Main extends App {
   println("running Scala macro experiments")
 }
 
 case class Person(firstName: String, lastName: String)
+trait X {
+  def z: Int
+}
 
 object MacroImpls {
   import reflect.macros.Context
@@ -28,5 +33,13 @@ object MacroImpls {
     reify {
         println(list.splice.mkString("\n"))
     }
+  }
+
+  //inspired by http://meta.plasm.us/posts/2013/07/12/vampire-methods-for-structural-types/
+  def makeInstanceImpl(c: scala.reflect.macros.Context): c.Expr[X] = c.universe.reify[X] {
+    class Workaround extends X {
+      def z: Int = 13
+    }
+    new Workaround {}
   }
 }

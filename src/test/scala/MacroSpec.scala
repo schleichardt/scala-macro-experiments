@@ -23,6 +23,11 @@ class SetSuite extends FunSuite {
     withFakeOut(new Hello().helloList(list)) should be("A\nB\nC\n")
   }
 
+  test("creating class and instance"){
+    val myInstance = TypeCreator.makeInstance
+    myInstance.z should be (13)
+  }
+
   def withFakeOut(block: => Unit): String = {
     val fakeOut = new ByteArrayOutputStream
     Console.withOut(fakeOut){
@@ -39,5 +44,9 @@ object PlayGround {
     def hello(): Unit = macro MacroImpls.helloImpl//qualified identifier macro implementation method in a static context
     def helloWithArgs(message: String, times: Int) = macro MacroImpls.helloWithArgsImpl
     def helloList(list: List[String]) = macro MacroImpls.helloListImpl
+  }
+  
+  object TypeCreator {
+    def makeInstance: X = macro MacroImpls.makeInstanceImpl
   }
 }
