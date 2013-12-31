@@ -10,3 +10,4 @@
 * http://stackoverflow.com/questions/14325282/introspect-argument-passed-to-a-scala-macro
 * http://dcsobral.blogspot.ch/2012/08/json-serialization-with-reflection-in.html
 * https://gist.github.com/akshaal/3388753
+* * https://gist.github.com/xeno-by/2559714
