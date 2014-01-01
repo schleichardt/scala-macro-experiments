@@ -50,12 +50,17 @@ class MacroSpecs extends FunSuite {
 
   def anMethod(param1: String, param2: Int) = Other.enclosingMethod
 
-  test("Context")(pending)
+  test("Context.mirror to find classes by name and inspect them"){
+    //http://www.scala-lang.org/api/current/index.html#scala.reflect.api.Mirror
+    ContextMacros.mirror1 should be (true)
+  }
+
+  test("Context.universe")(pending)
+  test("ExprUtils")(pending)
   test("Aliases")(pending)
   test("Attachments")(pending)
   test("Enclosures")(pending)
   test("Evals")(pending)
-  test("ExprUtils")(pending)
   test("FrontEnds")(pending)
   test("Infrastructure")(pending)
   test("Names")(pending)
@@ -85,6 +90,11 @@ object PlayGround {
     def helloWithArgs(message: String, times: Int) = macro MacroImpls.helloWithArgsImpl
     def helloList(list: List[String]) = macro MacroImpls.helloListImpl
   }
+
+  object ContextMacros {
+    def mirror1: Boolean = macro MacroImpls.contextMirror1
+  }
+
 
   object Other {
     def tree1 = macro MacroImpls.tree1Impl

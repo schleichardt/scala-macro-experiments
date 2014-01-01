@@ -3,6 +3,7 @@ package experiments
 import experiments.info.{CalledMethodInfo, ParameterInfo}
 import scala.annotation.StaticAnnotation
 import scala.language.existentials
+import scala.reflect.macros.Universe
 
 object Main extends App {
   println("running Scala macro experiments")
@@ -111,6 +112,13 @@ object MacroImpls {
     reify {
       CalledMethodInfo(methodName.splice, parameters.splice)
     }
+  }
+
+  def contextMirror1(c: scala.reflect.macros.Context): c.Expr[Boolean] = {
+    import c.universe._
+    val clazz: ClassSymbol = c.mirror.staticClass("scala.collection.immutable.List")
+    val scalaListIsClass: Boolean = clazz.isClass
+    c.literal(scalaListIsClass)
   }
 }
 
