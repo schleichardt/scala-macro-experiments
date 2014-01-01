@@ -51,9 +51,21 @@ class MacroSpecs extends FunSuite {
   def anMethod(param1: String, param2: Int) = Other.enclosingMethod
 
   test("Context")(pending)
+  test("Aliases")(pending)
+  test("Attachments")(pending)
+  test("Enclosures")(pending)
+  test("Evals")(pending)
+  test("ExprUtils")(pending)
+  test("FrontEnds")(pending)
+  test("Infrastructure")(pending)
+  test("Names")(pending)
+  test("Parsers")(pending)
+  test("Reifiers")(pending)
+  test("TreeBuilder")(pending)
+  test("Typers")(pending)
+  test("Universe")(pending)
   test("show")(pending)//show(c.enclosingClass) prints the class as kind of source code
   test("TreeApi")(pending)
-  test("Eval http://www.scala-lang.org/api/current/index.html#scala.reflect.macros.Evals")(pending)
 
   def withFakeOut(block: => Unit): String = {
     val fakeOut = new ByteArrayOutputStream
