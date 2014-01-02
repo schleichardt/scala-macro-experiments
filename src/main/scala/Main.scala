@@ -135,5 +135,15 @@ object MacroImpls {
     val tree = c.parse(s"${singletonObject.fullName}.bar")
     c.Expr[String](tree)
   }
+
+  def accessType1Impl(c: scala.reflect.macros.Context): c.Expr[String] = {
+    import c.universe._
+    val eventType = c.weakTypeOf[demo1.DemoType]
+    val x: String = eventType.typeSymbol.fullName
+    c.literal(x)
+  }
 }
 
+package demo1 {
+  trait DemoType
+}

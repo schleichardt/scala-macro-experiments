@@ -1,6 +1,9 @@
 ## Cache problems
 * if you change the macro implementation but not the file where the macro is called, the underlying code is outdated
 
+##
+* sometimes works reify and sometime c.literal
+
 ## Links
 * http://www.scala-lang.org/api/current/#scala.reflect.macros.package
 * http://docs.scala-lang.org/overviews/macros/overview.html

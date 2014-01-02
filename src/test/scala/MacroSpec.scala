@@ -63,6 +63,10 @@ class MacroSpecs extends FunSuite {
     Other.accessSingletonObject should be ("barAsString")
   }
 
+  test("get type of a class"){
+    experiments.PlayGround.Other.accessType1 should be ("experiments.demo1.DemoType")
+  }
+
   test("type and parse to generate statement like http://stackoverflow.com/questions/16898101/scala-macros-generating-type-parameter-calls")(pending)
   test("implement generic macro for non generic methods (see other project ESMacros#applyEventImpl)")(pending)
   test("Context.universe")(pending)
@@ -109,6 +113,7 @@ object PlayGround {
   object Other {
     def getCompanionFoo[T](param: T): String = macro  MacroImpls.getCompanionFooImpl[T]
     def accessSingletonObject: String = macro  MacroImpls.accessSingletonObjectImpl
+    def accessType1: String = macro MacroImpls.accessType1Impl
     def tree1 = macro MacroImpls.tree1Impl
     def parse = macro MacroImpls.parseImpl
     def enclosingClass = macro MacroImpls.enclosingClassImpl
@@ -127,7 +132,6 @@ object ClassWithCompanion {
 object WithNoClassOrTrait {
   def bar = "barAsString"
 }
-
 
 
 
