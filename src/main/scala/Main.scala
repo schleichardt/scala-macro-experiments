@@ -120,5 +120,20 @@ object MacroImpls {
     val scalaListIsClass: Boolean = clazz.isClass
     c.literal(scalaListIsClass)
   }
+
+  def getCompanionFooImpl[T](c: scala.reflect.macros.Context)(param: c.Expr[T])(implicit evidence: c.WeakTypeTag[T]): c.Expr[String] = {
+    import c.universe._
+    val companion = c.mirror.staticClass(param.actualType.toString).companionSymbol
+    val com = companion.fullName
+    val tree = c.parse(s"$com.foo")
+    c.Expr[String](tree)
+  }
+
+  def accessSingletonObjectImpl(c: scala.reflect.macros.Context): c.Expr[String] = {
+    import c.universe._
+    val singletonObject = c.mirror.staticModule("experiments.WithNoClassOrTrait")
+    val tree = c.parse(s"${singletonObject.fullName}.bar")
+    c.Expr[String](tree)
+  }
 }
 

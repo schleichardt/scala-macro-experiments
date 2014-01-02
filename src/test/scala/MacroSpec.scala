@@ -55,6 +55,16 @@ class MacroSpecs extends FunSuite {
     ContextMacros.mirror1 should be (true)
   }
 
+  test("get companion for a class"){
+    Other.getCompanionFoo(new ClassWithCompanion) should be ("fooAsString")
+  }
+
+  test("access directly an object"){
+    Other.accessSingletonObject should be ("barAsString")
+  }
+
+  test("type and parse to generate statement like http://stackoverflow.com/questions/16898101/scala-macros-generating-type-parameter-calls")(pending)
+  test("implement generic macro for non generic methods (see other project ESMacros#applyEventImpl)")(pending)
   test("Context.universe")(pending)
   test("ExprUtils")(pending)
   test("Aliases")(pending)
@@ -97,6 +107,8 @@ object PlayGround {
 
 
   object Other {
+    def getCompanionFoo[T](param: T): String = macro  MacroImpls.getCompanionFooImpl[T]
+    def accessSingletonObject: String = macro  MacroImpls.accessSingletonObjectImpl
     def tree1 = macro MacroImpls.tree1Impl
     def parse = macro MacroImpls.parseImpl
     def enclosingClass = macro MacroImpls.enclosingClassImpl
@@ -108,8 +120,13 @@ object PlayGround {
   }
 }
 
-
-
+class ClassWithCompanion
+object ClassWithCompanion {
+  def foo = "fooAsString"
+}
+object WithNoClassOrTrait {
+  def bar = "barAsString"
+}
 
 
 
